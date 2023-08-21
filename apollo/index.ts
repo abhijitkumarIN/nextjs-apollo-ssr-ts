@@ -22,10 +22,8 @@ function createApolloClient() {
 
 export function initializeApollo(initialState?: any) {
   const _apolloClient = apolloClient ?? createApolloClient();
-
   if (initialState) {
     const existingCache = _apolloClient.cache.extract();
-
     const data = merge(initialState, existingCache, {
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
@@ -36,15 +34,12 @@ export function initializeApollo(initialState?: any) {
     });
     _apolloClient.cache.restore(data);
   }
-
   if (typeof window === 'undefined') {
     return _apolloClient;
   }
-
   if (!apolloClient) {
     apolloClient = _apolloClient;
   }
-
   return _apolloClient;
 }
 
