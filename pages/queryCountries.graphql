@@ -1,6 +1,6 @@
 query {
   countries {
-    code
-    name
+    name,
+    code 
   }
 }

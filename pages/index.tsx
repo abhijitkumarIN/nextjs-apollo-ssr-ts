@@ -1,3 +1,4 @@
+
 import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 import type { GetStaticProps } from 'next';
@@ -11,6 +12,7 @@ import styles from '../styles/Home.module.css';
 export default function Home() {
   const { data, loading, error } = useQuery(QUERY_COUNTRIES);
 
+  console.log(data)
   // check for errors
   if (error) {
     return <p>:( an error happened</p>;
@@ -37,9 +39,9 @@ export default function Home() {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const client = initializeApollo();
-
   await client.query({
     query: QUERY_COUNTRIES,
+    fetchPolicy: 'network-only',
   });
 
   return addApolloState(client, {
